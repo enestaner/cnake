@@ -6,6 +6,18 @@
 - Aim is to live as much as you can and reach highest score
 
 &nbsp;
+### **BUILD:**
+
+- Firstly you must have a c compiler (like gcc)
+
+- Secondly you should download all .c and .h files
+
+- Then enter the **cmd** and go to the related **path**
+
+- Then enter ```gcc cnake.c functions.c -o cnake``` 
+
+- Now you created **exe** file, you can play with it.
+&nbsp;
 ### **Rules:**
 
 - Snake dies when touchs **itself** *(1)*
