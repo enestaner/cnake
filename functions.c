@@ -28,7 +28,7 @@ void printer(int *ptr, char type, char difficulty){
 
             if(type == 'n'){
                 for(col = 0; col < LENGTH; col++){
-                    if(*(ptr + row * LENGTH + col) == FOOD){
+                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD){
                         printf(colorYellow "%c " colorReset, *(ptr + row * LENGTH + col));
                     }
                     else if(*(ptr + row * LENGTH + col) == OBSTACLE){
@@ -41,7 +41,7 @@ void printer(int *ptr, char type, char difficulty){
             }
             else if(type == 'f'){
                 for(col = 0; col < LENGTH; col++){
-                    if(*(ptr + row * LENGTH + col) == FOOD){
+                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD){
                         printf(colorYellow "%c " colorReset, *(ptr + row * LENGTH + col));
                     }
                     else if(*(ptr + row * LENGTH + col) == OBSTACLE){
@@ -76,7 +76,7 @@ void printer(int *ptr, char type, char difficulty){
 
             if(type == 'n'){
                 for(col = 0; col < LENGTH; col++){
-                    if(*(ptr + row * LENGTH + col) == FOOD){
+                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD){
                         printf(colorYellow "%c " colorReset, *(ptr + row * LENGTH + col));
                     }
                     else if(*(ptr + row * LENGTH + col) == OBSTACLE){
@@ -89,7 +89,7 @@ void printer(int *ptr, char type, char difficulty){
             }
             else if(type == 'f'){
                 for(col = 0; col < LENGTH; col++){
-                    if(*(ptr + row * LENGTH + col) == FOOD){
+                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD){
                         printf(colorYellow "%c " colorReset, *(ptr + row * LENGTH + col));
                     }
                     else if(*(ptr + row * LENGTH + col) == OBSTACLE){
@@ -124,17 +124,23 @@ void sleep(int milli_seconds){
 
 void itemGenerator(int *ptr, char type){
 
-    int random;
+    int random, chance;
 
     while(1){
         random = rand() % (LENGTH * LENGTH);
+        chance = rand() % 100 + 1;
 
         if(*(ptr + random) != SNAKE_TAIL && *(ptr + random) != SNAKE_HEAD && *(ptr + random) != OBSTACLE){
             if(type == 'f'){
-                *(ptr + random) = FOOD;
+                if(chance < 90){
+                    *(ptr + random) = SMALL_FOOD;
+                }
+                else{
+                    *(ptr + random) = BIG_FOOD;
+                }
                 break;
             }
-            else if(type == 'o' && *(ptr + random) != FOOD){
+            else if(type == 'o' && *(ptr + random) != SMALL_FOOD && *(ptr + random) != BIG_FOOD){
                 *(ptr + random) = OBSTACLE;
                 break;
             }

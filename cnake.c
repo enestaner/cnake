@@ -63,9 +63,14 @@ int main(){
             }
         }
         
-        if(*(table + (*(row) * LENGTH) + *(col)) == FOOD){
+        if(*(table + (*(row) * LENGTH) + *(col)) == SMALL_FOOD){
             speed >= 60 ? speed -= 3 : 0;
             score++;
+            itemGenerator(table, 'f');
+        }
+        else if(*(table + (*(row) * LENGTH) + *(col)) == BIG_FOOD){
+            speed >= 60 ? speed -= 3 : 0;
+            score += 5;
             itemGenerator(table, 'f');
         }
         else if(*(table + (*(row) * LENGTH) + *(col)) == OBSTACLE || *(table + (*(row) * LENGTH) + *(col)) == SNAKE_TAIL){

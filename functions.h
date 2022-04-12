@@ -7,7 +7,8 @@
 #define SNAKE_HEAD 254
 #define SNAKE_TAIL 111
 #define VOID 32
-#define FOOD 42
+#define SMALL_FOOD 42
+#define BIG_FOOD 224
 #define OBSTACLE 221
 #define OBSTACLE_TIME 5
 #define colorBlue    "\e[1;34m"
