@@ -28,7 +28,7 @@ void printer(int *ptr, char type, char difficulty){
 
             if(type == 'n'){
                 for(col = 0; col < LENGTH; col++){
-                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD){
+                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD || *(ptr + row * LENGTH + col) == BIG_FOOD){
                         printf(colorYellow "%c " colorReset, *(ptr + row * LENGTH + col));
                     }
                     else if(*(ptr + row * LENGTH + col) == OBSTACLE){
@@ -41,7 +41,7 @@ void printer(int *ptr, char type, char difficulty){
             }
             else if(type == 'f'){
                 for(col = 0; col < LENGTH; col++){
-                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD){
+                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD || *(ptr + row * LENGTH + col) == BIG_FOOD){
                         printf(colorYellow "%c " colorReset, *(ptr + row * LENGTH + col));
                     }
                     else if(*(ptr + row * LENGTH + col) == OBSTACLE){
@@ -76,7 +76,7 @@ void printer(int *ptr, char type, char difficulty){
 
             if(type == 'n'){
                 for(col = 0; col < LENGTH; col++){
-                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD){
+                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD || *(ptr + row * LENGTH + col) == BIG_FOOD){
                         printf(colorYellow "%c " colorReset, *(ptr + row * LENGTH + col));
                     }
                     else if(*(ptr + row * LENGTH + col) == OBSTACLE){
@@ -89,7 +89,7 @@ void printer(int *ptr, char type, char difficulty){
             }
             else if(type == 'f'){
                 for(col = 0; col < LENGTH; col++){
-                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD){
+                    if(*(ptr + row * LENGTH + col) == SMALL_FOOD || *(ptr + row * LENGTH + col) == BIG_FOOD){
                         printf(colorYellow "%c " colorReset, *(ptr + row * LENGTH + col));
                     }
                     else if(*(ptr + row * LENGTH + col) == OBSTACLE){
