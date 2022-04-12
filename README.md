@@ -17,6 +17,7 @@
 - Then enter ```gcc cnake.c functions.c -o cnake``` 
 
 - Now you created **exe** file, you can play with it.
+
 &nbsp;
 ### **Rules:**
 
