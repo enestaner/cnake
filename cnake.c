@@ -2,7 +2,7 @@
 
 int main(){
 
-    int i, *row, *col, game, *table, score = 1, timer, speed, temp_row, temp_col, temp_snake_row, temp_snake_col, direction_s_row = 0, direction_s_col = 0, direction_d_row = 0, direction_d_col = 0, direction_w_row = 0, direction_w_col = 0, direction_a_row = 0, direction_a_col = 0;
+    int i, *row, *col, game, *table, score = 0, len, timer, speed, temp_row, temp_col, temp_snake_row, temp_snake_col, direction_s_row = 0, direction_s_col = 0, direction_d_row = 0, direction_d_col = 0, direction_w_row = 0, direction_w_col = 0, direction_a_row = 0, direction_a_col = 0;
     char active_direction = '!', negative_direction = '!', choice, isStart = 'n', difficulty;
     Sn *snake;
 
@@ -27,7 +27,7 @@ int main(){
     creator(table);
     itemGenerator(table, 'f');
 
-    for(timer = 0, speed = 150, game = 1; game != 0;  direction_s_row++, direction_d_col++, direction_w_row--, direction_a_col--, timer += speed){
+    for(len = 1, timer = 0, speed = 150, game = 1; game != 0;  direction_s_row++, direction_d_col++, direction_w_row--, direction_a_col--, timer += speed){
 
         system("cls");
 
@@ -66,11 +66,13 @@ int main(){
         if(*(table + (*(row) * LENGTH) + *(col)) == SMALL_FOOD){
             speed >= 60 ? speed -= 3 : 0;
             score++;
+            len++;
             itemGenerator(table, 'f');
         }
         else if(*(table + (*(row) * LENGTH) + *(col)) == BIG_FOOD){
-            speed >= 60 ? speed -= 3 : 0;
+            speed >= 60 ? speed -= 5 : 0;
             score += 5;
+            len++;
             itemGenerator(table, 'f');
         }
         else if(*(table + (*(row) * LENGTH) + *(col)) == OBSTACLE || *(table + (*(row) * LENGTH) + *(col)) == SNAKE_TAIL){
@@ -82,7 +84,7 @@ int main(){
             break;
         }
 
-        for(i = 0; i < score; i++){
+        for(i = 0; i < len; i++){
             temp_snake_row = (snake + i + 1)->row;
             temp_snake_col = (snake + i + 1)->col;
             (snake + i + 1)->row = snake->row;
@@ -94,12 +96,12 @@ int main(){
         snake->col = *(col);
 
         *(table + ((snake)->row * LENGTH) + (snake)->col) = SNAKE_HEAD;
-        for(i = 1; i < score;  i++){
+        for(i = 1; i < len;  i++){
             *(table + ((snake + i)->row * LENGTH) + (snake + i)->col) = SNAKE_TAIL;
         }
         isStart == 'y' ? *(table + (temp_snake_row * LENGTH) + temp_snake_col) = VOID : 0;
 
-        printf(colorYellow "\t\tSCORE: %d\n" colorReset, score - 1);
+        printf(colorYellow "\t\tSCORE: %d\n" colorReset, score);
         printer(table, 'n', difficulty);
         sleep(speed);
 

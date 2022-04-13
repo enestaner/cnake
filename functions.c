@@ -152,7 +152,7 @@ void gameOver(int *ptr, int score, char difficulty){
    
     printf(colorRed "\n\t    ----GAME OVER----\n\n" colorReset);
     printer(ptr, 'f', difficulty);
-    printf(colorYellow "\n\t\tFINAL SCORE: %d\n\n" colorReset, score - 1);
+    printf(colorYellow "\n\t\tFINAL SCORE: %d\n\n" colorReset, score);
     getch();
     getch();
 }
