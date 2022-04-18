@@ -29,6 +29,10 @@
 
 - Every **5** seconds random **obstacle** summons *(4)*
 
+- Normal food increases score **1**, big one does **5**
+
+- Special scoreboard for **Hard** mode
+
 
 &nbsp;
 ### **Difficulties:**
