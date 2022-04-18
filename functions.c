@@ -153,8 +153,17 @@ void gameOver(int *ptr, int score, char difficulty){
     printf(colorRed "\n\t    ----GAME OVER----\n\n" colorReset);
     printer(ptr, 'f', difficulty);
     printf(colorYellow "\n\t\tFINAL SCORE: %d\n\n" colorReset, score);
-    getch();
-    getch();
+    
+    if(difficulty == 'h'){
+        sleep(1500);
+        system("cls");
+        recordTable(score);
+        getch();
+    }
+    else{
+        getch();
+        getch();
+    }
 }
 
 char entrance(){
@@ -162,26 +171,30 @@ char entrance(){
     char diff;
 
     printf(colorYellow " -Welcome to CNAKE game\n" colorReset);
-    sleep(700);
+    sleep(600);
     printf(colorBlue " -To move use W,A,S,D\n" colorReset);
-    sleep(700);
+    sleep(600);
     printf(colorGreen " -To resume or quit press Q\n" colorGreen);
-    sleep(700);
+    sleep(600);
     printf(colorMagenta " -Evertime snake eats food, becomes faster\n" colorReset);
-    sleep(700);
-    printf(colorYellow " -Snake dies when (1) touchs itself, (2) touchs the walls, (3) touchs the random obstacles which each %d seconds summoning\n" colorReset, OBSTACLE_TIME);
-    sleep(700);
-    printf(colorBlue " -Easy mode have (1)\n" colorReset);
-    sleep(700);
-    printf(colorGreen " -Medium mode have (1), (2)\n" colorReset);
-    sleep(700);
-    printf(colorMagenta " -Hard mode have (1), (2), (3)\n" colorReset);
-    sleep(700);
-    printf(colorYellow " -Select the difficulty E - M - H: " colorReset);
+    sleep(600);
+    printf(colorYellow " -Normal food +1, Big food +5 increases score\n" colorReset);
+    sleep(600);
+    printf(colorBlue " -There is special leaderboard for hard mode\n" colorReset);
+    sleep(600);
+    printf(colorGreen " -Snake dies when (1) touchs itself, (2) touchs the walls, (3) touchs the random obstacles which each %d seconds summoning\n" colorReset, OBSTACLE_TIME);
+    sleep(600);
+    printf(colorMagenta " -Easy mode have (1)\n" colorReset);
+    sleep(600);
+    printf(colorYellow " -Medium mode have (1), (2)\n" colorReset);
+    sleep(600);
+    printf(colorBlue " -Hard mode have (1), (2), (3)\n" colorReset);
+    sleep(600);
+    printf(colorGreen " -Select the difficulty E - M - H: " colorReset);
     scanf("%c", &diff);
-    printf(colorBlue " -NOTE: If you have trouble with food summons just restart the game\n" colorReset);
+    printf(colorMagenta " -NOTE: If you have trouble with food summons just restart the game\n" colorReset);
     sleep(1000);
-    printf(colorGreen "\n\t\tHAVE FUN :)\n" colorReset);
+    printf(colorYellow "\n\t\tHAVE FUN :)\n" colorReset);
     sleep(1000);
 
     switch(diff){
@@ -191,8 +204,8 @@ char entrance(){
             break;
 
         case 'M':
-        case 'm':
-            diff = 'm';
+        case 'k':
+            diff = 'k';
             break;
 
         case 'H':
@@ -207,3 +220,88 @@ char entrance(){
     return diff;
 }
 
+void recordTable(int score){
+
+    int *record, old_record, temp, i, j, k, l;
+    char *record_name, temp_name[20], name[20];
+    FILE *file;
+
+    record = (int*)malloc(sizeof(int) * 5);
+    record_name = (char*)malloc(sizeof(char) * 100);
+    file = fopen("cnake_record_table.txt", "r+");
+
+    for(i = 0; i < 100; i++){
+        *(record_name + i) = ' ';
+    }
+
+    if(file == NULL){
+        fclose(file);
+        file = fopen("cnake_record_table.txt", "w+");
+
+        fprintf(file, "\t\tNAME\t\tSCORE\n");
+        for(i = 1; i < 6; i++){
+            fprintf(file, "%d\t%10s\t\t%5d\n", i, "NONE", 0);
+        }
+    }
+    rewind(file);
+    fgets(name, 100, file);
+    for(i = 0; i < 5; i++){
+        fscanf(file ,"%d\t%s\t\t%d\n", &temp, &temp_name, (record + i));
+ 
+        for(j = 20 * i, k = 0; temp_name[k] != '\0'; j++, k++){
+            *(record_name + j) = temp_name[k];
+        }
+        *(record_name + j) = '\0';
+    }
+
+    for(i = 0; i < 5; i++){
+        if(score > *(record + i)){
+            
+            printf(colorBlue "\n\nCONGRATULATIONS YOU ARE PLACED %d. ON SCOREBOARD\n" colorReset, i+1);
+            printf(colorGreen "PLEASE ENTER YOUR NAME: " colorReset);
+            scanf("%s", &name);
+
+            temp = score;
+
+            for(l = i; l < 5; l++){
+                old_record = *(record + l);
+                *(record + l) = temp;
+                temp = old_record;
+
+                for(j = 20 * l, k = 0; *(record_name + j) != '\0'; j++, k++){
+                    temp_name[k] = *(record_name + j);
+                }
+                temp_name[k] = '\0';
+
+                for(j = 20 * l, k = 0; name[k] != '\0'; j++, k++){
+                    *(record_name + j) = name[k];
+                }
+                *(record_name + j) = '\0';
+
+                for(k = 0; temp_name[k] != '\0'; k++){
+                    name[k] = temp_name[k];
+                }
+                name[k] = '\0';
+            }
+            i = 5;
+        }
+    }
+    printf(colorYellow "\tLEADERBOARD (for hard mode)\n\n" colorReset);
+    printf("\n\t\tNAME\t\tSCORE\n\n");
+    rewind(file);
+    fprintf(file, "\t\tNAME\t\tSCORE\n");
+
+    for(i = 0; i < 5; i++){
+
+        for(j = 20 * i, k = 0; *(record_name + j) != '\0'; j++, k++){
+            temp_name[k] = *(record_name + j);
+        }
+        temp_name[k] = '\0';
+        fprintf(file, "%d\t%10s\t\t%5d\n", i + 1, temp_name, *(record + i));
+        printf("%d\t%10s\t\t%5d\n", i + 1, temp_name, *(record + i));
+    }
+
+    fclose(file);
+    free(record);
+    free(record_name);
+}

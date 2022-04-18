@@ -25,6 +25,7 @@ void sleep(int milli_seconds);
 void itemGenerator(int *ptr, char type);
 void gameOver(int *ptr, int score, char difficulty);
 char entrance();
+void recordTable(int score);
 
 typedef struct Snake{
     int row;
