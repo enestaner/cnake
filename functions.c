@@ -286,7 +286,7 @@ void recordTable(int score){
             i = 5;
         }
     }
-    printf(colorYellow "\tLEADERBOARD (for hard mode)\n\n" colorReset);
+    printf(colorYellow "\n\tLEADERBOARD (for hard mode)\n" colorReset);
     printf("\n\t\tNAME\t\tSCORE\n\n");
     rewind(file);
     fprintf(file, "\t\tNAME\t\tSCORE\n");
